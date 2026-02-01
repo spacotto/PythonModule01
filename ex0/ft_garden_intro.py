@@ -7,24 +7,28 @@ This program:
 3. displays the plant information using print()
 """
 
+
 def display_plant_info(name: str, height: int, age: int) -> None:
     """
     Displays the basic information of a plant in the garden.
     """
     # ANSI Color codes
-    white   = "\033[1;97m"
-    reset   = "\033[0m"
+    white = "\033[1;97m"
+    reset = "\033[0m"
 
-    # Start of program print
-    print("\n ============================================================================")
-    print(f" {white}🌱 Welcome to My Garden! 🌱{reset}")
-    print(" ============================================================================")
-    
-    # Printing
-    print(f"{white} Plant:{reset}  {name}")
-    print(f"{white} Height:{reset} {height}cm")
-    print(f"{white} Age:{reset}    {age} days")
-    print(f"\n End of Program")
+    # Fixed start of program print
+    print(f"\n{white} 🌱 Welcome to My Garden! 🌱{reset}\n")
+    print(f"{white} Lable         Data{reset}")
+    print(" --------------------------------------------------------")
+
+    # Variable data print
+    print(f"{white} Plant{reset}         {name}")
+    print(f"{white} Height{reset}        {height}cm")
+    print(f"{white} Age{reset}           {age} days")
+
+    # Fixed end of program print
+    print("\n --------------------------------------------------------")
+    print(" End of Program\n")
 
 
 if __name__ == "__main__":
