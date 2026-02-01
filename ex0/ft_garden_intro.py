@@ -8,34 +8,31 @@ This program:
 """
 
 
-def display_plant_info(name: str, height: int, age: int) -> None:
+    def ft_garden_intro(name: str, height: int, age: int) -> None:
     """
     Displays the basic information of a plant in the garden.
     """
+    print(f" {name:<13}{f'{height}cm':<13}{f'{age} days':<13}")
+
+if __name__ == "__main__":
+    
     # ANSI Color codes
     white = "\033[1;97m"
     reset = "\033[0m"
 
+    # Columns titles
+    c1 = "Name"
+    c2 = "Height"
+    c3 = "Age"
+    
     # Fixed start of program print
-    print(f"\n{white} 🌱 Welcome to My Garden! 🌱{reset}\n")
-    print(f"{white} Lable         Data{reset}")
+    print(f"\n{white} 🌱 Garden Plant Registry 🌱{reset}\n")
+    print(f" {white}{c1:<13}{c2:<13}{c3:<13}{reset}")
     print(" --------------------------------------------------------")
 
-    # Variable data print
-    print(f"{white} Plant{reset}         {name}")
-    print(f"{white} Height{reset}        {height}cm")
-    print(f"{white} Age{reset}           {age} days")
+    # Add data entries
+    ft_garden_intro("Rose", 25, 30)
 
     # Fixed end of program print
     print("\n --------------------------------------------------------")
     print(" End of Program\n")
-
-
-if __name__ == "__main__":
-    # Internal variables to store plant data
-    plant_name: str = "Rose"
-    plant_height: int = 25
-    plant_age: int = 30
-
-    # Function call
-    display_plant_info(plant_name, plant_height, plant_age)
