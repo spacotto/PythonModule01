@@ -5,21 +5,43 @@
 
 ## Exercises
 ### Exercise 0: Planting Your First Seed
-The focus here is on the mechanics of how Python code transitions from a text file to a running process.
-- The Global Namespace: Understanding how variables are stored when not inside a function or class.
-- The `__name__ Variable`: Theory behind Python's internal naming of modules and how it changes based on execution context.
-- Standard Output (`STDOUT`): How the `print()` function interacts with the terminal.
-- Scripting Fundamentals: The role of the "Shebang" line (`#!`) in Unix-like environments.
-    
-### Exercise 1: Garden Data Organiser
+* **Entry Point Execution**: Understanding how Python identifies the main script being run.
+* **Namespace Protection**: The logic behind the `if __name__ == "__main__":` block to prevent code execution during imports.
+* **Standard Output**: Using `print()` to interface with the user terminal.
+* **Variable Scope**: Storing basic data types in a local or global context.
+
+### Exercise 1: Garden Data Organizer
+* **Class Definition**: Creating a "blueprint" (Class) to represent real-world objects.
+* **Object Instantiation**: Turning a class blueprint into unique physical entities (Instances).
+* **Naming Conventions**: Applying PascalCase for classes and snake_case for attributes/functions.
+* **Data Structures**: Using lists or objects to store and organize multiple records efficiently.
 
 ### Exercise 2: Plant Growth Simulator
+* **Instance Methods**: Designing behaviors (functions) that allow an object to act upon itself.
+* **State Mutation**: The theory of how an object's internal attributes (height, age) change over its lifecycle.
+* **Type Hinting**: Implementing static type annotations to define expected input and output data.
 
 ### Exercise 3: Plant Factory
+* **Constructors**: Understanding the `__init__` method's role in setting up an object's initial state.
+* **Object Initialization**: Efficiently assigning unique starting values during the creation process.
+* **Scalable Creation**: The theory behind automating the generation of multiple object instances.
 
 ### Exercise 4: Garden Security System
 
-### Exercise 5: Specialised Plant Types
+* **Encapsulation**: Protecting internal data from direct external access to maintain integrity.
+* **Validation Logic**: Implementing "gatekeeper" methods (setters) to reject invalid or impossible data.
+* **Information Hiding**: The principle of exposing only necessary interfaces while hiding implementation details.
+
+### Exercise 5: Specialized Plant Types
+
+* **Inheritance (Is-A Relationship)**: Extending a base "Parent" class to create specialized "Child" classes.
+* **Code Reusability**: Using inheritance to share common features without duplicating code across types.
+* **Superclass Access**: Utilizing `super().__init__()` to properly initialize inherited attributes from parent classes.
 
 ### Exercise 6: Garden Analytics Platform
-
+* **Composition**: Nesting classes (like `GardenStats` inside `GardenManager`) to manage complex relationships.
+* **Method Scoping**: 
+    * **Class Methods**: Logic that belongs to the class itself rather than a specific instance.
+    * **Static Methods**: Utility functions that are grouped within a class for organization but don't access state.
+* **Multi-level Inheritance**: Building deep hierarchies (Plant → FloweringPlant → PrizeFlower).
+* **System Architecture**: Organizing multiple interacting components into a cohesive ecosystem.
