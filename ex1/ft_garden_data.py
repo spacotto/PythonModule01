@@ -5,9 +5,21 @@ This program track multiple plants with their information.
 """
 
 
-def ft_garden_data(name: str, height: int, age: int) -> None:
+class Plant:
     """
-    Text goes here
+    Each plant has:
+    1. A name
+    2. Height in centimeters
+    3. Age in days
+    """
+    def __init__(self, name: str, height: int, age: int) -> None:
+        self.name: str = name
+        self.height: int = height
+        self.age: int = age
+
+def ft_garden_intro(name: str, height: int, age: int) -> None:
+    """
+    Displays the basic information of a plant in the garden.
     """
     print(f" {name:<13}{f'{height}cm':<13}{f'{age} days':<13}")
 
