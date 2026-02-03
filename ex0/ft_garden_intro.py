@@ -1,10 +1,7 @@
 #!/usr/bin/env python3
 
 """
-This program:
-1. runs when executed directly
-2. stores plant information in simple variables (name, height, age)
-3. displays the plant information using print()
+Store and display plant information in simple variables (name, height, age).
 """
 
 
@@ -14,8 +11,10 @@ def ft_garden_intro(name: str, height: int, age: int) -> None:
     """
     print(f" {name:<13}{f'{height}cm':<13}{f'{age} days':<13}")
 
-
-if __name__ == "__main__":
+def display_header() -> None:
+    """
+    Displays the header of the plant registry.
+    """
     # ANSI Color codes
     white = "\033[1;97m"
     reset = "\033[0m"
@@ -30,11 +29,16 @@ if __name__ == "__main__":
     print(f" {white}{c1:<13}{c2:<13}{c3:<13}{reset}")
     print(" --------------------------------------------------------")
 
-    # Add data entries
+if __name__ == "__main__":
+
+    # Print header
+    display_header()
+
+    # Print plants data
     ft_garden_intro("Rose", 25, 30)
     ft_garden_intro("Sunflower", 80, 45)
     ft_garden_intro("Cactus", 15, 120)
 
-    # Fixed end of program print
+    # Signal the end of the program
     print("\n --------------------------------------------------------")
     print(" End of Program\n")
