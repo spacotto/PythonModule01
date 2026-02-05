@@ -59,7 +59,7 @@ class SecurePlant:
         print(f"Current plant: {self.name} ({self._height}cm, {self._age} days)")
 
 
-if __name__ == "__main__":
+def main() -> None:
     print("=== Garden Security System ===")
     
     # Create a plant
@@ -76,3 +76,7 @@ if __name__ == "__main__":
 
     # Final status check
     rose.display_status()
+
+
+if __name__ == "__main__":
+    main()
