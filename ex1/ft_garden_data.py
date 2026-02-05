@@ -42,7 +42,10 @@ def display_header() -> None:
     print(" --------------------------------------------------------")
 
 
-if __name__ == "__main__":
+def main() -> None:
+    """
+    Creates and displays a registry of garden plants.
+    """
     # Garden plants stored in a list
     garden: list[Plant] = [
         Plant("Rose", 25, 30),
@@ -58,3 +61,7 @@ if __name__ == "__main__":
         p.display_info()
 
     print(" ")
+    
+    
+if __name__ == "__main__":
+    main()
