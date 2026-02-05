@@ -10,6 +10,7 @@ def display_info(name: str, height: int, age: int) -> None:
     """
     print(f" {name:<13}{f'{height}cm':<13}{f'{age} days':<13}")
 
+
 def display_header() -> None:
     """
     Displays the header of the plant registry.
@@ -41,6 +42,7 @@ def main() -> None:
     # Signal the end of the program
     print("\n --------------------------------------------------------")
     print(" End of Program\n")
+
 
 if __name__ == "__main__":
     main()
