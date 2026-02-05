@@ -52,7 +52,7 @@ class Vegetable(Plant):
         print(f"{self.name} is harvested in {self.harvest_season} and is rich in {self.nutritional_value}.")
 
 
-if __name__ == "__main__":
+def main() -> None:
     print("=== Garden Plant Types ===\n")
 
     # Requirement: Create at least 2 instances of each plant type
@@ -77,3 +77,7 @@ if __name__ == "__main__":
         elif isinstance(p, Vegetable):
             p.describe_nutrition()
         print("-" * 30)
+
+
+if __name__ == "__main__":
+    main()
