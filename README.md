@@ -30,7 +30,6 @@ This module provides a structured pedagogical path that transitions students fro
 * **Parameterized Instantiation**: Passing specific arguments during object creation (e.g., `Plant("Rose", 25, 30)`) to allow for diverse instances from a single blueprint.
 * **The `__str__` Dunder Method**: A "magic method" that defines how an object should be represented as a string, making it easier to print object information cleanly.
 * **Factory Pattern Logic**: The concept of streamlining object creation to handle large volumes of data efficiently without repetitive manual assignments.
-* **Tuple Unpacking**: A Pythonic way to pass multiple values from a data structure into a function or class constructor using the `*` operator.
 
 ### Exercise 4: Garden Security System
 
