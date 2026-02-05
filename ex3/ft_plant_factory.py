@@ -53,8 +53,10 @@ def display_total(total: int) -> None:
     print(f"\n{white} 🌱 Total plants created{reset}: {total}\n")
 
 
-if __name__ == "__main__":
-
+def main() -> None:
+    """
+    Simulates the creation of a batch of plants
+    """
     # List of plants to create
     factory_batch: list[Plant] = [
         Plant("Rose", 25, 30),
@@ -78,3 +80,5 @@ if __name__ == "__main__":
     # Print total
     display_total(total)
 
+if __name__ == "__main__":
+    main()
