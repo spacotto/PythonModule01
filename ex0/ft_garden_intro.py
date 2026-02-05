@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
-
 """
 Store and display plant information in simple variables (name, height, age).
 """
 
 
-def ft_garden_intro(name: str, height: int, age: int) -> None:
+def display_info(name: str, height: int, age: int) -> None:
     """
     Displays the basic information of a plant in the garden.
     """
@@ -35,10 +34,11 @@ if __name__ == "__main__":
     display_header()
 
     # Print plants data
-    ft_garden_intro("Rose", 25, 30)
-    ft_garden_intro("Sunflower", 80, 45)
-    ft_garden_intro("Cactus", 15, 120)
+    display_info("Rose", 25, 30)
+    display_info("Sunflower", 80, 45)
+    display_info("Cactus", 15, 120)
 
     # Signal the end of the program
     print("\n --------------------------------------------------------")
     print(" End of Program\n")
+
