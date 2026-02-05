@@ -28,8 +28,8 @@ def display_header() -> None:
     print(f" {white}{c1:<13}{c2:<13}{c3:<13}{reset}")
     print(" --------------------------------------------------------")
 
-if __name__ == "__main__":
 
+def main() -> None:
     # Print header
     display_header()
 
@@ -42,3 +42,5 @@ if __name__ == "__main__":
     print("\n --------------------------------------------------------")
     print(" End of Program\n")
 
+if __name__ == "__main__":
+    main()
