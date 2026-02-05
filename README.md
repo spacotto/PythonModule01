@@ -19,7 +19,11 @@ This module provides a structured pedagogical path that transitions students fro
 * **Collection Management**: Using data structures like lists to store and iterate over multiple class instances efficiently.
 
 ### Exercise 2: Plant Growth Simulator
-
+* **Instance Methods**: Functions defined inside a class that operate on instances of that class. They use the `self` parameter to access and modify the object's specific attributes.
+* **Encapsulation of Behavior**: Moving logic (like growth calculations) inside the class rather than handling it in the main execution block. This ensures the object "knows" how to manage its own lifecycle.
+* **State Mutation**: The process of changing an object's internal data (attributes) over time through method calls, representing real-world transitions like aging or physical growth.
+* **Abstraction**: Providing a simple interface (like `grow()`) that hides the internal arithmetic from the user, making the code more readable and maintainable.
+* **Looping with Objects**: Using `range()` and loops to trigger repetitive behaviors across class instances, simulating the passage of time in a system.
 
 ### Exercise 3: Plant Factory
 
