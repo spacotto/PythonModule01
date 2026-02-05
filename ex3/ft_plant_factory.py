@@ -16,13 +16,13 @@ class Plant:
         self.height: int = height
         self.age: int = age
 
-    def display_creation(self) -> None:
+    def __str__(self) -> str:
         """
-        Displays the current status of the plant.
+        Returns a formatted string representing the plant.
         """
         h_str: str = f"{self.height}cm"
         a_str: str = f"{self.age} days"
-        print(f" {self.name:<13}{h_str:<13}{a_str:<13}")
+        return f" {self.name:<13}{h_str:<13}{a_str:<13}"
 
 
 def display_header() -> None:
@@ -74,7 +74,7 @@ def main() -> None:
 
     # Iterate through the batch to display them
     for p in factory_batch:
-        p.display_creation()
+        print(p)
         total += 1
 
     # Print total
