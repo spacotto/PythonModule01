@@ -39,6 +39,10 @@ This module provides a structured pedagogical path that transitions students fro
 * **Fail-Safe Design**: Programming the system to handle incorrect input by reporting an error (e.g., printing a rejection message) rather than crashing or allowing the state to become inconsistent.
 
 ### Exercise 5: Specialised Plant Types
-
+* **Inheritance**: A mechanism where a new class (subclass) derives attributes and behaviors from an existing class (parent), facilitating code reuse and logical hierarchy.
+* **The `super()` Function**: A built-in function that allows a subclass to call methods from its parent class, most commonly used to trigger the parent's `__init__` constructor.
+* **Method Specialization**: Defining unique methods in subclasses (like `bloom()` or `produce_shade()`) that are only relevant to that specific type, not the general parent class.
+* **Attribute Extension**: Adding specific data fields to a subclass (e.g., `trunk_diameter`) while still maintaining the common fields inherited from the base class.
+* **DRY Principle (Don't Repeat Yourself)**: Using inheritance to avoid duplicating common code (like name/height initialization) across multiple related classes.
 
 ### Exercise 6: Garden Analytics Platform
