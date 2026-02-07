@@ -131,6 +131,13 @@ def main() -> None:
     fern.set_height(-10)
     fern.set_age(-127)
 
+    # Attempt to access data directly
+    print(f"\n {white}Direct Access Attempt{reset}")
+    try:
+        print(f" Attempting to read rose.__height: {rose.__height}")
+    except AttributeError:
+        print(f" {white}Access Denied{reset}: Private attribute '__height' is not accessible.")
+
     # Final Status
     print(f"\n {white}🌱 Garden Security System: Plant Status{reset}")
     display_header()
