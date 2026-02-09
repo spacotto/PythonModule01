@@ -30,7 +30,7 @@ class SecurePlant:
         reject: str = f"[{magenta}REJECTED{reset}]"
 
         if value < 0:
-            print(f"\n Invalid operation attempted: height {value}cm {reject}")
+            print(f"\n Invalid operation attempted: height {value} days {reject}")
             print(f" Security: {f_name} negative height rejected")
         else:
             self.__height = value
