@@ -100,7 +100,7 @@ def main() -> None:
 
     print(f"\n{white} 🌱 Garden Security System: Plant Status{reset}")
 
-    # Initial Creation
+    """Initial Creation"""
     rose = SecurePlant("Rose", 25, 30)
     cactus = SecurePlant("Cactus", 5, 90)
     sunflower = SecurePlant("Sunflower", 80, 45)
@@ -112,33 +112,33 @@ def main() -> None:
     print(sunflower)
     print(fern)
 
-    # Test Cases Section
+    """Test Cases Section"""
     print(f"\n {white}🌱 Garden Security System: Update Report{reset}")
 
-    # Both valid
+    """Both valid"""
     rose.set_height(5)
     rose.set_age(37)
 
-    # Height valid
+    """Only height valid"""
     cactus.set_height(2)
     cactus.set_age(-97)
 
-    # Age valid
+    """Only age valid"""
     sunflower.set_height(-6)
     sunflower.set_age(52)
 
-    # None valid
+    """None valid"""
     fern.set_height(-10)
     fern.set_age(-127)
 
-    # Attempt to access data directly
+    """Attempt to access data directly"""
     print(f"\n {white}Direct Access Attempt{reset}")
     try:
         print(f" Attempting to read rose.__height: {rose.__height}")
     except AttributeError:
-        print(f" {white}Access Denied{reset}: Private attribute '__height' is not accessible.")
+        print(f" {white}Access Denied{reset}: Attribute is private.")
 
-    # Final Status
+    """Final Status"""
     print(f"\n {white}🌱 Garden Security System: Plant Status{reset}")
     display_header()
     print(rose)
