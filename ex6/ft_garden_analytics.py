@@ -27,7 +27,7 @@ class FloweringPlant(Plant):
 
 
 class PrizeFlower(FloweringPlant):
-    """Terminal layer of the inheritance chain: Plant -> FloweringPlant -> PrizeFlower."""
+    """Terminal layer of the inheritance chain."""
     def __init__(self, name: str, height: int, color: str, points: int):
         super().__init__(name, height, color)
         self.prize_points: int = points
@@ -36,7 +36,6 @@ class PrizeFlower(FloweringPlant):
 class GardenManager:
     """
     Manages multiple gardens and their analytics.
-    Demonstrates Composition and different method types.
     """
     # Class-level attribute to track total gardens
     total_gardens: int = 0
@@ -79,9 +78,10 @@ class GardenManager:
             print(status)
 
 
-if __name__ == "__main__":
-    print("=== Garden Management System Demo ===")
-    
+def main() -> None:
+    print("\n 🌱 Garden Management System Demo")
+    print(" --------------------------------------------------------")
+ 
     # 1. Setup Managers
     alice_manager = GardenManager("Alice")
     bob_manager = GardenManager("Bob")
@@ -110,3 +110,6 @@ if __name__ == "__main__":
 
     # 6. Use Class Method
     GardenManager.get_global_report()
+
+if __name__ == "__main__":
+    main()
