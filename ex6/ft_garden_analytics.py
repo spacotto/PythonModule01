@@ -139,64 +139,6 @@ class GardenManager:
                 return days
         print(f"Error: Garden '{garden_name}' not found in network.")
 
-    def calculate_garden_score(self, garden: Garden) -> int:
-        """Calculates the total score of a garden based on plant types."""
-        total_score = 0
-        for plant in garden.plants:
-            if isinstance(plant, PrizeFlower):
-                total_score += plant.get_prize_flower_score()
-            elif isinstance(plant, FloweringPlant):
-                total_score += plant.get_flowering_plant_score()
-            else:
-                total_score += plant.get_plant_score()
-        return total_score
-
-    def get_network_count(self) -> int:
-        """Helper to count gardens without len()"""
-        count = 0
-        for _ in self._GardenManager__network:
-            count += 1
-        return count
-
-    def check_age_integrity(self) -> bool:
-        """Validates age > 0 for all plants in the network"""
-        valid = True
-        for garden in self._GardenManager__network:
-            for plant in garden.plants:
-                if plant.get_age() <= 0:
-                    valid = False
-        return valid
-
-    def display_garden_scores(self) -> None:
-        """Display the scores of the gardens in the network"""
-        w = "\033[1;97m"
-        r = "\033[0m"
-        """Print header"""
-        t1, t2, t3 = "Garden", "Owner", "Score" 
-        print(f"\n {w}{t1:<18}{t2:<18}{t3:<18}{r}")
-        print(" --------------------------------------------------------")
-        """Calculate garden scores"""
-        for garden in self.__network:
-            name = garden.get_garden_name()
-            owner = garden.get_owner_name()
-            score = self.calculate_garden_score(garden)
-            print(f" {name:<18}{owner:<18}{score:<18}")
-        """Total gardens managed"""
-        network = "Total gardens managed"
-        gardens = self.get_network_count()
-        print(" --------------------------------------------------------")
-        print(f" {w}{network}{r}: {gardens}")
-
-    def display_network_report(self) -> None:
-        """Displays stats for the entire garden network."""
-        w = "\033[1;97m"
-        r = "\033[0m"
-        """Print report"""
-        print(f" {w}🌱 Network Analytics Report 🌱{r}")
-        self.check_age_integrity()
-        self.display_garden_scores()
-        print(" ")
-
     class GardenStats:
         """Nested helper class for calculating garden statistics"""
         def __init__(self, manager: 'GardenManager'):
@@ -288,6 +230,67 @@ class GardenManager:
             print(f" Plant types: {regular} regular, {flowering} flowering, {prize} prize flowers")
             print(" ")
 
+    def check_age_integrity(self) -> bool:
+        """Validates age > 0 for all plants in the network"""
+        valid = True
+        for garden in self._GardenManager__network:
+            for plant in garden.plants:
+                if plant.get_age() <= 0:
+                    valid = False
+        return valid
+
+    def calculate_garden_score(self, garden: Garden) -> int:
+        """Calculates the total score: sum of plant type scores + sum of ages."""
+        total_score = 0
+        for plant in garden.plants:
+            """Get points based on the plant's class/type"""
+            if plant.type == "PrizeFlower":
+                total_score += plant.get_prize_flower_score()
+            elif plant.type == "FloweringPlant":
+                total_score += plant.get_flowering_plant_score()
+            else:
+                total_score += plant.get_plant_score()
+            """Add the plant's age to the total score"""
+            total_score += plant.get_age()
+        return total_score
+
+    def get_network_count(self) -> int:
+        """Helper to count gardens without len()"""
+        count = 0
+        for _ in self._GardenManager__network:
+            count += 1
+        return count
+
+    def display_garden_scores(self) -> None:
+        """Display the scores of the gardens in the network"""
+        w = "\033[1;97m"
+        r = "\033[0m"
+        """Print header"""
+        t1, t2, t3 = "Garden", "Owner", "Score" 
+        print(f"\n {w}{t1:<18}{t2:<18}{t3:<18}{r}")
+        print(" --------------------------------------------------------")
+        """Calculate garden scores"""
+        for garden in self.__network:
+            name = garden.get_garden_name()
+            owner = garden.get_owner_name()
+            score = self.calculate_garden_score(garden)
+            print(f" {name:<18}{owner:<18}{score:<18}")
+        """Total gardens managed"""
+        network = "Total gardens managed"
+        gardens = self.get_network_count()
+        print(" --------------------------------------------------------")
+        print(f" {w}{network}{r}: {gardens}")
+
+    def display_network_report(self) -> None:
+        """Displays stats for the entire garden network."""
+        w = "\033[1;97m"
+        r = "\033[0m"
+        """Print report"""
+        print(f" {w}🌱 Network Analytics Report 🌱{r}")
+        self.check_age_integrity()
+        self.display_garden_scores()
+        print(" ")
+
 
 def main() -> None:
     w = "\033[1;97m"
@@ -307,6 +310,10 @@ def main() -> None:
     rose = FloweringPlant("Rose", 26, "Red")
     sunflower = PrizeFlower("Sunflower", 51, "Yellow", 10)
 
+    ash = Plant("Ash", 15)
+    tulip = FloweringPlant("Tulip", 10, "Yellow")
+    orchid = PrizeFlower("Orchid", 5, "Purple", 50)
+
     """Start Garden Demo"""
     print(f"\n{w} 🌱 Garden Management System Demo 🌱{r}\n")
 
@@ -314,6 +321,10 @@ def main() -> None:
     manager.add_plant("Alice", "Wonderland", oak)
     manager.add_plant("Alice", "Wonderland", rose)
     manager.add_plant("Alice", "Wonderland", sunflower)
+
+    manager.add_plant("Bob", "Backyard", ash)
+    manager.add_plant("Bob", "Backyard", tulip)
+    manager.add_plant("Bob", "Backyard", orchid)
 
     """Execute grow on all the plants in target Garden"""
     manager.grow_garden("Wonderland", 1)
