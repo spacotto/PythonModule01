@@ -73,9 +73,9 @@ class PrizeFlower(FloweringPlant):
         base_info = super().get_info()
         return f"{base_info}{self.__prize_points:<10}"
 
-    @staticmethod
-    def get__prize_flower_score() -> int:
-        return 30
+    def get_prize_flower_score() -> int:
+        points = self.get_prize_points()
+        return 20 + points
 
 
 class Garden:
@@ -84,12 +84,21 @@ class Garden:
         self.__garden_name = garden_name
         self.__owner_name = owner_name
         self.plants = []
+        self.__total_growth = 0
 
     def get_garden_name(self) -> str:
         return self.__garden_name
 
     def get_owner_name(self) -> str:
         return self.__owner_name
+
+    def add_growth(self, days: int) -> None:
+        """Accumulate total growth days for this garden"""
+        self.__total_growth += days
+
+    def get_total_growth(self) -> int:
+        """Retrieve the accumulated growth days"""
+        return self.__total_growth
 
 
 class GardenManager:
@@ -118,7 +127,7 @@ class GardenManager:
                 return
         print(f"Error: No garden found for {garden}")
 
-    def grow_garden(self, garden_name: str, days: int) -> None:
+    def grow_garden(self, garden_name: str, days: int) -> int:
         """Executes grow on all plants within a specific garden"""
         for target_garden in self.__network:
             if target_garden.get_garden_name() == garden_name:
@@ -126,7 +135,8 @@ class GardenManager:
                 print(f"\n 🌱 {owner} is helping all plants grow...")
                 for plant in target_garden.plants:
                     plant.grow(days)
-                return
+                    target_garden.add_growth(days) 
+                return days
         print(f"Error: Garden '{garden_name}' not found in network.")
 
     class GardenStats:
@@ -134,23 +144,37 @@ class GardenManager:
         def __init__(self, manager: 'GardenManager'):
             self.__manager = manager
 
-        def display_plants_list(self, garden_name: str) -> None:
-            """Displays the list of plants and their data in a target garden"""
-            white = "\033[1;97m"
-            reset = "\033[0m"
-            c1, c2, c3, c4 = "Name", "Age", "Color", "Points"
-            for target_garden in self._GardenStats__manager._GardenManager__network:
-                """Searches for the target garden in the network"""
-                if target_garden.get_garden_name() == garden_name:
-                    print("\n 🌱 Plants in garden\n")
-                    print(f" {white}{c1:<15}{c2:<15}{c3:<15}{c4:<15}{reset}")
-                    print(" --------------------------------------------------------")
-                    for plant in target_garden.plants:
-                        print(plant.get_info())
-                    return
-            print(f"Error: Garden '{garden_name}' not found for report.")
-
         def count_plants(self, garden_name: str) -> int:
+            """Counts how many Plants are in a Garden"""
+            counter = 0
+            for target_garden in self.__manager._GardenManager__network:
+                if target_garden.get_garden_name() == garden_name:
+                    for plant in target_garden.plants:
+                        if plant.type == "Plant":
+                            counter += 1
+            return counter
+
+        def count_flowring_plants(self, garden_name: str) -> int:
+            """Counts how many FloweringPlant are in a Garden"""
+            counter = 0
+            for target_garden in self.__manager._GardenManager__network:
+                if target_garden.get_garden_name() == garden_name:
+                    for plant in target_garden.plants:
+                        if plant.type == "FloweringPlant":
+                            counter += 1
+            return counter
+
+        def count_prize_flowers(self, garden_name: str) -> int:
+            """Counts how many PrizeFlower are in a Garden"""
+            counter = 0
+            for target_garden in self.__manager._GardenManager__network:
+                if target_garden.get_garden_name() == garden_name:
+                    for plant in target_garden.plants:
+                        if plant.type == "PrizeFlower":
+                            counter += 1
+            return counter
+
+        def count_total_plants(self, garden_name: str) -> int:
             """Calculates how many plants are in the garden"""
             plants = 0
             for target_garden in self.__manager._GardenManager__network:
@@ -159,14 +183,40 @@ class GardenManager:
                         plants += 1
             return plants
 
-        def display_garden_stats(self, garden_name: str) -> None:
-            plants_added = self.count_plants(garden_name)
-            print(f" Plants added: {plants_added}")
+        def calculate_growth(self, garden_name: str) -> None:
+            """Display total growth days of all plants in a garden"""
+            growth = 0
+            for target_garden in self.__manager._GardenManager__network:
+                if target_garden.get_garden_name() == garden_name:
+                    growth = target_garden.get_total_growth()
+            return growth
+
+        def display_plants_list(self, garden_name: str) -> None:
+            """Displays the list of plants and their data in a target garden"""
+            w = "\033[1;97m"
+            r = "\033[0m"
+            c1, c2, c3, c4 = "Plant", "Age", "Color", "Points"
+            for target_garden in self._GardenStats__manager._GardenManager__network:
+                """Searches for the target garden in the network"""
+                if target_garden.get_garden_name() == garden_name:
+                    print(f"\n {w}{c1:<15}{c2:<15}{c3:<15}{c4:<15}{r}")
+                    print(" --------------------------------------------------------")
+                    for plant in target_garden.plants:
+                        print(plant.get_info())
+                    return
+            print(f"Error: Garden '{garden_name}' not found for report.")
 
         def display_garden_report(self, garden_name: str) -> None:
             """Displays all the stats of a target Garden"""
-            white = "\033[1;97m"
-            reset = "\033[0m"
+            w = "\033[1;97m"
+            r = "\033[0m"
+            """ Retrieve stats using your existing methods"""
+            total_added = self.count_total_plants(garden_name)
+            total_growth = self.calculate_growth(garden_name)
+            """Retrieve specific type counts"""
+            regular = self.count_plants(garden_name)
+            flowering = self.count_flowring_plants(garden_name)
+            prize = self.count_prize_flowers(garden_name)
             """Find the owner of the Garden"""
             owner_name = "Unknown"
             for target_garden in self.__manager._GardenManager__network:
@@ -174,16 +224,16 @@ class GardenManager:
                     owner_name = target_garden.get_owner_name()
                     break
             """Display the report"""
-            print(f"\n{white} 🌱 {owner_name}'s Garden Report 🌱{reset}")
+            print(f"\n{w} 🌱 {owner_name}'s Garden Report 🌱{r}")
             self.display_plants_list(garden_name)
-            print(f"\n 🌱 {owner_name}'s Garden Stats")
-            self.display_garden_stats(garden_name)
+            print(f"\n Plants added: {total_added}, Total growth: {total_growth} day(s)")
+            print(f" Plant types: {regular} regular, {flowering} flowering, {prize} prize flowers")
             print(" ")
 
 
 def main() -> None:
-    white = "\033[1;97m"
-    reset = "\033[0m"
+    w = "\033[1;97m"
+    r = "\033[0m"
 
     """Initialize manager, network, and stats"""
     manager = GardenManager()
@@ -199,7 +249,7 @@ def main() -> None:
     sunflower = PrizeFlower("Sunflower", 51, "Yellow", 10)
 
     """Start Garden Demo"""
-    print(f"\n{white} 🌱 Garden Management System Demo 🌱{reset}\n")
+    print(f"\n{w} 🌱 Garden Management System Demo 🌱{r}\n")
 
     """Add plants to the garden in the network"""
     manager.add_plant("Alice", "Wonderland", oak)
@@ -211,6 +261,9 @@ def main() -> None:
 
     """Garden Report"""
     stats.display_garden_report("Wonderland")
+
+    """Network Report"""
+
 
 if __name__ == "__main__":
     main()
