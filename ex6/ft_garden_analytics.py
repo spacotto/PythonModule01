@@ -6,11 +6,12 @@ Building a comprehensive Garden Analytics Platform.
 
 class Plant:
     """Base class for all plants"""
+    _score: int = 10  # Class variable for scoring
+    
     def __init__(self, name: str, age: int) -> None:
         self.__name = name
         self.__age = age
         self.type: str = "Plant"
-        self.__score: int = 10
 
     def get_name(self) -> str:
         return self.__name
@@ -32,17 +33,17 @@ class Plant:
 
     @classmethod
     def get_plant_score(cls) -> int:
-        return cls.__score
+        return cls._score
 
 
 class FloweringPlant(Plant):
     """A plant that has a color and blooms"""
+    _score: int = 20  # Class variable for scoring
 
     def __init__(self, name: str, age: int, color: str) -> None:
         super().__init__(name, age)
         self.__color = color
         self.type: str = "FloweringPlant"
-        self.__score: int = 20
 
     def get_color(self) -> str:
         return self.__color
@@ -54,10 +55,6 @@ class FloweringPlant(Plant):
         base_info = super().get_info()
         return f"{base_info}{self.__color:<15}"
 
-    @classmethod
-    def get_plant_score(cls) -> int:
-        return cls.__score
-
 
 class PrizeFlower(FloweringPlant):
     """A flowering plant that socred prize points"""
@@ -66,18 +63,22 @@ class PrizeFlower(FloweringPlant):
         super().__init__(name, age, color)
         self.__prize_points = prize_points
         self.type: str = "PrizeFlower"
-        self.__score: int = 10 + prize_points
 
     def get_prize_points(self) -> int:
         return self.__prize_points
 
+    @classmethod
+    def get_plant_score(cls) -> int:
+        # Base score for PrizeFlower (without prize points)
+        return 20
+    
+    def get_instance_score(self) -> int:
+        # Instance method to get score including prize points
+        return 20 + self.__prize_points
+
     def get_info(self) -> str:
         base_info = super().get_info()
         return f"{base_info}{self.__prize_points:<10}"
-
-    @classmethod
-    def get_plant_score(cls) -> int:
-        return cls.__score
 
 
 class Garden:
@@ -94,8 +95,9 @@ class Garden:
     def get_owner_name(self) -> str:
         return self.__owner
 
+    @property
     def plants(self) -> list[Plant]:
-        return self._plants
+        return self.__plants
 
     def add_growth(self, days: int) -> None:
         """Accumulate total growth days for this garden"""
@@ -121,13 +123,11 @@ class GardenManager:
         return new_garden
 
     def add_plant(self, owner: str, garden: str, plant_obj: Plant) -> None:
-        """
-        Retrieves the garden list from the network list and adds the plant.
-        """
+        """Retrieves the garden from the network and adds the plant."""
         for target_garden in self.__network:
             """Check if the target Garden list is present in Networn list"""
             if target_garden.get_garden_name() == garden:
-                target_garden.plants += [plant_obj]
+                target_garden.plants.append(plant_obj)
                 print(f" Added {plant_obj.get_name()} to {owner}'s garden")
                 return
         print(f"Error: No garden found for {garden}")
@@ -250,11 +250,11 @@ class GardenManager:
         for plant in garden.plants:
             """Get points based on the plant's class/type"""
             if plant.type == "PrizeFlower":
-                total_score += plant.get_prize_flower_score()
+                total_score += plant.get_instance_score()
             elif plant.type == "FloweringPlant":
-                total_score += plant.get_flowering_plant_score()
+                total_score += FloweringPlant.get_plant_score()
             else:
-                total_score += plant.get_plant_score()
+                total_score += Plant.get_plant_score()
             """Add the plant's age to the total score"""
             total_score += plant.get_age()
         return total_score
