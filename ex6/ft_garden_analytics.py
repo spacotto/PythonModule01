@@ -10,6 +10,7 @@ class Plant:
         self.__name = name
         self.__age = age
         self.type: str = "Plant"
+        self.__score: int = 10
 
     def get_name(self) -> str:
         return self.__name
@@ -29,9 +30,9 @@ class Plant:
         age_str: str = f"{self.__age} days"
         return f" {self.__name:<15}{age_str:<15}"
 
-    @staticmethod
-    def get_plant_score() -> int:
-        return 10
+    @classmethod
+    def get_plant_score(cls) -> int:
+        return cls.__score
 
 
 class FloweringPlant(Plant):
@@ -41,6 +42,7 @@ class FloweringPlant(Plant):
         super().__init__(name, age)
         self.__color = color
         self.type: str = "FloweringPlant"
+        self.__score: int = 20
 
     def get_color(self) -> str:
         return self.__color
@@ -52,10 +54,9 @@ class FloweringPlant(Plant):
         base_info = super().get_info()
         return f"{base_info}{self.__color:<15}"
 
-    @staticmethod
-    def get_flowering_plant_score() -> int:
-        """Base score for a FloweringPlant"""
-        return 20
+    @classmethod
+    def get_plant_score(cls) -> int:
+        return cls.__score
 
 
 class PrizeFlower(FloweringPlant):
@@ -65,6 +66,7 @@ class PrizeFlower(FloweringPlant):
         super().__init__(name, age, color)
         self.__prize_points = prize_points
         self.type: str = "PrizeFlower"
+        self.__score: int = 10 + prize_points
 
     def get_prize_points(self) -> int:
         return self.__prize_points
@@ -73,24 +75,27 @@ class PrizeFlower(FloweringPlant):
         base_info = super().get_info()
         return f"{base_info}{self.__prize_points:<10}"
 
-    def get_prize_flower_score(self) -> int:
-        points = self.get_prize_points()
-        return 20 + points
+    @classmethod
+    def get_plant_score(cls) -> int:
+        return cls.__score
 
 
 class Garden:
     """Container for Plant objects"""
     def __init__(self, garden_name: str, owner_name: str) -> None:
-        self.__garden_name = garden_name
-        self.__owner_name = owner_name
-        self.plants = []
+        self.__name = garden_name
+        self.__owner = owner_name
+        self.__plants: list[Plant] = []
         self.__total_growth = 0
 
     def get_garden_name(self) -> str:
-        return self.__garden_name
+        return self.__name
 
     def get_owner_name(self) -> str:
-        return self.__owner_name
+        return self.__owner
+
+    def plants(self) -> list[Plant]:
+        return self._plants
 
     def add_growth(self, days: int) -> None:
         """Accumulate total growth days for this garden"""
