@@ -26,15 +26,15 @@ class SecurePlant:
         reset = "\033[0m"
 
         f_name: str = f"{white}{self.name}{reset}"
-        accept: str = f"[{cyan}ACCEPTED{reset}]"
-        reject: str = f"[{magenta}REJECTED{reset}]"
+        a: str = f"[{cyan}ACCEPTED{reset}]"
+        r: str = f"[{magenta}REJECTED{reset}]"
 
         if value < 0:
-            print(f"\n Invalid operation attempted: height {value} days {reject}")
+            print(f"\n Invalid operation attempted: height {value} days {r}")
             print(f" Security: {f_name} negative height rejected")
         else:
             self.__height = value
-            print(f"\n Operation successful: height {value}cm {accept}")
+            print(f"\n Operation successful: height {value}cm {a}")
             print(f" Security: {f_name} status updated to {value}cm")
 
     def get_height(self) -> int:

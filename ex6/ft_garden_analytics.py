@@ -7,7 +7,7 @@ Building a comprehensive Garden Analytics Platform.
 class Plant:
     """Base class for all plants"""
     _score: int = 10  # Class variable for scoring
-    
+
     def __init__(self, name: str, age: int) -> None:
         self.__name = name
         self.__age = age
@@ -29,7 +29,7 @@ class Plant:
 
     def get_info(self) -> str:
         age_str: str = f"{self.__age} days"
-        return f" {self.__name:<15}{age_str:<15}"
+        return f" {self.__name:<12}{age_str:<12}"
 
     @classmethod
     def get_plant_score(cls) -> int:
@@ -53,13 +53,14 @@ class FloweringPlant(Plant):
 
     def get_info(self) -> str:
         base_info = super().get_info()
-        return f"{base_info}{self.__color:<15}"
+        return f"{base_info}{self.__color:<12}"
 
 
 class PrizeFlower(FloweringPlant):
     """A flowering plant that socred prize points"""
 
-    def __init__(self, name: str, age: int, color: str, prize_points: int) -> None:
+    def __init__(self, name: str, age: int, color: str,
+                 prize_points: int) -> None:
         super().__init__(name, age, color)
         self.__prize_points = prize_points
         self.type: str = "PrizeFlower"
@@ -71,14 +72,13 @@ class PrizeFlower(FloweringPlant):
     def get_plant_score(cls) -> int:
         # Base score for PrizeFlower (without prize points)
         return 20
-    
+
     def get_instance_score(self) -> int:
-        # Instance method to get score including prize points
         return 20 + self.__prize_points
 
     def get_info(self) -> str:
         base_info = super().get_info()
-        return f"{base_info}{self.__prize_points:<10}"
+        return f"{base_info}{self.__prize_points:<12}"
 
 
 class Garden:
@@ -111,7 +111,7 @@ class Garden:
 class GardenManager:
     """Manages multiple gardens and provides analytics"""
     def __init__(self):
-        self.__network = [] 
+        self.__network = []
 
     def create_garden_network(self) -> None:
         self.__network = []
@@ -140,7 +140,7 @@ class GardenManager:
                 print(f"\n 🌱 {owner} is helping all plants grow...")
                 for plant in target_garden.plants:
                     plant.grow(days)
-                    target_garden.add_growth(days) 
+                    target_garden.add_growth(days)
                 return days
         print(f"Error: Garden '{garden_name}' not found in network.")
 
@@ -204,8 +204,8 @@ class GardenManager:
             for target_garden in self._GardenStats__manager._GardenManager__network:
                 """Searches for the target garden in the network"""
                 if target_garden.get_garden_name() == garden_name:
-                    print(f"\n {w}{c1:<15}{c2:<15}{c3:<15}{c4:<15}{r}")
-                    print(" --------------------------------------------------------")
+                    print(f"\n {w}{c1:<12}{c2:<12}{c3:<12}{c4:<12}{r}")
+                    print(" -------------------------------------------------")
                     for plant in target_garden.plants:
                         print(plant.get_info())
                     return
@@ -272,18 +272,18 @@ class GardenManager:
         r = "\033[0m"
         """Print header"""
         t1, t2, t3 = "Garden", "Owner", "Score" 
-        print(f"\n {w}{t1:<18}{t2:<18}{t3:<18}{r}")
-        print(" --------------------------------------------------------")
+        print(f"\n {w}{t1:<16}{t2:<16}{t3:<16}{r}")
+        print(" -------------------------------------------------")
         """Calculate garden scores"""
         for garden in self.__network:
             name = garden.get_garden_name()
             owner = garden.get_owner_name()
             score = self.calculate_garden_score(garden)
-            print(f" {name:<18}{owner:<18}{score:<18}")
+            print(f" {name:<16}{owner:<16}{score:<16}")
         """Total gardens managed"""
         network = "Total gardens managed"
         gardens = self.get_network_count()
-        print(" --------------------------------------------------------")
+        print(" -------------------------------------------------")
         print(f" {w}{network}{r}: {gardens}")
 
     def display_network_report(self) -> None:
