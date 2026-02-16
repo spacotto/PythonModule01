@@ -5,9 +5,9 @@ Implement Encapsulation and Data Validation.
 
 
 class SecurePlant:
-    """
-    A class that protects its data from corruption through encapsulation.
-    """
+    """Readability colors."""
+    m, c, w, r = "\033[1;95m", "\033[1;96m", "\033[1;97m", "\033[0m"
+
     def __init__(self, name: str, height: int, age: int) -> None:
         """
         Initialises a plant with valid starting values.
@@ -20,21 +20,17 @@ class SecurePlant:
         """
         Controlled way to modify height with validation.
         """
-        magenta = "\033[1;95m"
-        cyan = "\033[1;96m"
-        white = "\033[1;97m"
-        reset = "\033[0m"
-
-        f_name: str = f"{white}{self.name}{reset}"
-        a: str = f"[{cyan}ACCEPTED{reset}]"
-        r: str = f"[{magenta}REJECTED{reset}]"
+        f_name: str = f"{self.w}{self.name}{self.r}"
+        accept: str = f"[{self.c}ACCEPTED{self.r}]"
+        reject: str = f"[{self.m}REJECTED{self.r}]"
 
         if value < 0:
-            print(f"\n Invalid operation attempted: height {value} days {r}")
+            print(f"\n Invalid operation attempted:"
+                  f"height {value} days {reject}")
             print(f" Security: {f_name} negative height rejected")
         else:
             self.__height = value
-            print(f"\n Operation successful: height {value}cm {a}")
+            print(f"\n Operation successful: height {value}cm {accept}")
             print(f" Security: {f_name} status updated to {value}cm")
 
     def get_height(self) -> int:
@@ -47,14 +43,9 @@ class SecurePlant:
         """
         Controlled way to modify age with validation.
         """
-        magenta = "\033[1;95m"
-        cyan = "\033[1;96m"
-        white = "\033[1;97m"
-        reset = "\033[0m"
-
-        f_name: str = f"{white}{self.name}{reset}"
-        accept: str = f"[{cyan}ACCEPTED{reset}]"
-        reject: str = f"[{magenta}REJECTED{reset}]"
+        f_name: str = f"{self.w}{self.name}{self.r}"
+        accept: str = f"[{self.c}ACCEPTED{self.r}]"
+        reject: str = f"[{self.m}REJECTED{self.r}]"
 
         if value < 0:
             print(f"\n Invalid operation attempted: age {value} days {reject}")
@@ -70,35 +61,34 @@ class SecurePlant:
         """
         return self.__age
 
-    def __str__(self) -> str:
-        """
-        Returns a formatted string representing the current plant status.
-        """
+    def get_info(self) -> str:
+        """Returns a formatted string of the plant's current status."""
         g_height: int = self.get_height()
         g_age: int = self.get_age()
         h_str: str = f"{g_height}cm"
         a_str: str = f"{g_age} days"
-        return f" {self.name:<13}{h_str:<13}{a_str:<13}"
+        return f" {self.name:<20}{h_str:<20}{a_str:<20}"
+
+    def display_info(self) -> None:
+        """Displays the current status of the plant."""
+        print(self.get_info())
 
 
 def display_header() -> None:
     """
     Displays the factory output header.
     """
-    white = "\033[1;97m"
-    reset = "\033[0m"
+    w, r = "\033[1;97m", "\033[0m"
 
     c1, c2, c3 = "Name", "Height", "Age"
 
-    print(f"\n {white}{c1:<13}{c2:<13}{c3:<13}{reset}")
-    print(" --------------------------------------------------------")
+    print(f"\n {w}🌱 Garden Security System: Plant Status{r}")
+    print(f"\n {w}{c1:<20}{c2:<20}{c3:<20}{r}")
+    print(" " + "-" * 60)
 
 
 def main() -> None:
-    white = "\033[1;97m"
-    reset = "\033[0m"
-
-    print(f"\n{white} 🌱 Garden Security System: Plant Status{reset}")
+    w, r = "\033[1;97m", "\033[0m"
 
     """Initial Creation"""
     rose = SecurePlant("Rose", 25, 30)
@@ -107,13 +97,13 @@ def main() -> None:
     fern = SecurePlant("Fern", 15, 120)
 
     display_header()
-    print(rose)
-    print(cactus)
-    print(sunflower)
-    print(fern)
+    rose.display_info()
+    cactus.display_info()
+    sunflower.display_info()
+    fern.display_info()
 
     """Test Cases Section"""
-    print(f"\n {white}🌱 Garden Security System: Update Report{reset}")
+    print(f"\n {w}🌱 Garden Security System: Update Report{r}")
 
     """Both valid"""
     rose.set_height(5)
@@ -132,19 +122,18 @@ def main() -> None:
     fern.set_age(-127)
 
     """Attempt to access data directly"""
-    print(f"\n {white}Direct Access Attempt{reset}")
+    print(f"\n {w}Direct Access Attempt{r}")
     try:
         print(f" Attempting to read rose.__height: {rose.__height}")
     except AttributeError:
-        print(f" {white}Access Denied{reset}: Attribute is private.")
+        print(f" {w}Access Denied{r}: Attribute is private.")
 
     """Final Status"""
-    print(f"\n {white}🌱 Garden Security System: Plant Status{reset}")
     display_header()
-    print(rose)
-    print(cactus)
-    print(sunflower)
-    print(fern)
+    rose.display_info()
+    cactus.display_info()
+    sunflower.display_info()
+    fern.display_info()
     print(" ")
 
 
