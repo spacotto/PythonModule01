@@ -14,8 +14,8 @@ class Plant:
     def display_info(self) -> None:
         """Displays the current status of the plant instance."""
         print(f" {self.name:<20}"
-              f"{f"{self.height}cm":<20}"
-              f"{f"{self.age} days":<20}")
+              f"{f'{self.height}cm':<20}"
+              f"{f'{self.age} days':<20}")
 
 
 def display_header() -> None:
