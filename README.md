@@ -2,6 +2,14 @@
 This module provides a structured pedagogical path that transitions students from basic Python execution to designing complex, scalable software architectures. By incrementally building a garden management system, it ensures that learners first master fundamental program structures (such as the `if __name__ == "__main__":` block) before introducing the more abstract concepts of **Object-Oriented Programming (OOP)** like **encapsulation**, **inheritance**, and **polymorphism**. The project requires students to implement **data validation** and **secure interfaces** to **prevent system corruption**.
 
 ## Instructions
+Git clone the repository:
+```
+git clone https://github.com/spacotto/Python_Module01.git
+```
+Each file includes a main. Thus, you can directly execute the files. For example:
+```
+python3 ex/ft_garden_intro.py
+```
 
 ## Exercises
 ### Exercise 0: Planting Your First Seed
