@@ -1,5 +1,5 @@
 # Python Module 01
-**CodeCultivation, Object-Oriented Garden Systems:** learn **Object-Oriented Programming (OOP)** by becoming a digital gardener—because apparently, the best way to understand classes is to grow virtual plants and realize you've been doing OOP all along! 🌱💻
+**CodeCultivation, Object-Oriented Garden Systems:** learn **Object-Oriented Programming (OOP)** by becoming a digital gardener—because, apparently, the best way to understand classes is to grow virtual plants and realize you've been doing OOP all along! 🌱💻
 
 ## Instructions
 Git clone the repository:
